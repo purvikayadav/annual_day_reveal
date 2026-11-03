@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Annual Function Reveal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080719;
+}
+
+.stage {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    isolation: isolate;
+    color: white;
+    background:
+        radial-gradient(ellipse at 50% 100%, #49205f, transparent 55%),
+        radial-gradient(ellipse at 15% 20%, #24144b, transparent 45%),
+        linear-gradient(135deg, #050619, #160d2d, #08091c);
+}
+
+.glow {
+    position: absolute;
+    width: 45vw;
+    height: 45vw;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .25;
+    pointer-events: none;
+}
+
+.glow.one {
+    background: #8d39ff;
+    top: -20%;
+    left: -10%;
+}
+
+.glow.two {
+    background: #f52c91;
+    right: -15%;
+    bottom: -20%;
+}
+
+.glow.three {
+    background: #ffad32;
+    left: 35%;
+    bottom: -30%;
+}
+
+#stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    to {
+        opacity: 1;
+        transform: scale(1.8);
+    }
+}
+
+/* INTRO */
+
+.intro {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    background: radial-gradient(circle, #29154188, transparent 70%);
+}
+
+.intro h1 {
+    color: #ffe7a7;
+    font-size: clamp(28px, 5vw, 72px);
+    letter-spacing: 5px;
+    line-height: 1.25;
+    text-shadow: 0 0 20px #ffbd55, 0 0 55px #ff8a32;
+}
+
+.intro p {
+    margin-top: 22px;
+    color: #e5d5ff;
+    font-size: clamp(13px, 2vw, 24px);
+    letter-spacing: 3px;
+}
+
+.start-btn {
+    margin-top: 45px;
+    padding: 18px 45px;
+    border: 1px solid #ffe6a3;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #fff0ad, #e5a52e);
+    color: #24132c;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 35px #ffc75c88;
+    transition: .3s;
+}
+
+.start-btn:hover {
+    transform: scale(1.08);
+}
+
+/* SUSPENSE */
+
+.teaser {
+    position: absolute;
+    z-index: 12;
+    top: 12%;
+    left: 50%;
+    width: 95%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fff0c5;
+    font-size: clamp(18px, 3vw, 38px);
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #ffbd55, 0 0 35px #ff8a32;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.teaser.show {
+    animation: teaserIn 3.5s ease forwards;
+}
+
+@keyframes teaserIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 25px);
+    }
+    20%, 75% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+}
+
+/* NORMAL BALLOONS */
+
+#balloons {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -200px;
+    width: var(--size);
+    height: calc(var(--size) * 1.65);
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: manipulation;
+    animation: floatUp var(--duration) linear forwards;
+}
+
+.balloon-body {
+    position: relative;
+    width: 100%;
+    height: 70%;
+    border-radius: 50% 50% 46% 46%;
+    background:
+        radial-gradient(ellipse at 30% 20%, #ffffff, transparent 17%),
+        linear-gradient(125deg,
+            var(--color),
+            #ffffff55 40%,
+            var(--color) 75%,
+            #00000066);
+    box-shadow:
+        inset -9px -12px 15px #00000044,
+        inset 6px 5px 15px #ffffff66,
+        0 0 22px var(--color);
+}
+
+.balloon-knot {
+    width: 12px;
+    height: 12px;
+    margin: -2px auto 0;
+    background: var(--color);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.balloon-string {
+    width: 1px;
+    height: 38px;
+    margin: auto;
+    background: #ffffff99;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translate(var(--drift), -65vh) rotate(6deg);
+    }
+    100% {
+        transform: translate(calc(var(--drift) * -.5), -130vh) rotate(-5deg);
+    }
+}
+
+.balloon.popping {
+    animation: pop .35s ease-out forwards !important;
+    pointer-events: none;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); opacity: 1; }
+    45% { transform: scale(1.7); filter: brightness(3); }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+/* HUGE GOLDEN BALLOON IN THE EXACT CENTRE */
+
+.balloon.golden {
+    position: absolute;
+    left: 50% !important;
+    top: 53%;
+    bottom: auto;
+    width: clamp(145px, 19vw, 225px);
+    height: clamp(240px, 33vw, 365px);
+    z-index: 18;
+    transform: translate(-50%, -50%);
+    animation: goldenEntrance 2s cubic-bezier(.17,.89,.32,1.3) forwards,
+               goldenFloat 2.5s ease-in-out 2s infinite;
+    pointer-events: auto;
+    filter: drop-shadow(0 0 25px #ffcc45);
+    opacity: 0;
+}
+
+.balloon.golden .balloon-body {
+    height: 70%;
+    background:
+        radial-gradient(ellipse at 30% 18%, #fffde0, transparent 20%),
+        linear-gradient(130deg,
+            #fff8c5,
+            #ffdf68 22%,
+            #f3bd36 45%,
+            #a96a08 75%,
+            #ffe68b);
+    box-shadow:
+        inset -12px -15px 20px #69400066,
+        inset 8px 8px 22px #fff9c8,
+        0 0 45px #ffca42,
+        0 0 90px #ffb52d;
+}
+
+.balloon.golden .balloon-knot {
+    background: #e5ac31;
+}
+
+.balloon.golden .balloon-string {
+    height: 65px;
+    background: linear-gradient(#ffe9a5, transparent);
+}
+
+@keyframes goldenEntrance {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 100vh) scale(.35);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -56%) scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes goldenFloat {
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(-50%, -55%);
+    }
+}
+
+/* GOLDEN BALLOON LABEL */
+
+.gold-label {
+    position: absolute;
+    top: 29%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 17;
+    width: 90%;
+    text-align: center;
+    color: #ffe9a5;
+    font-size: clamp(13px, 2vw, 22px);
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px #ffbd45;
+    opacity: 0;
+    animation: labelIn 1.5s ease 1.5s forwards;
+    pointer-events: none;
+}
+
+@keyframes labelIn {
+    to { opacity: 1; }
+}
+
+/* INSTRUCTION */
+
+.instruction {
+    position: absolute;
+    z-index: 20;
+    bottom: 28px;
+    width: 100%;
+    text-align: center;
+    color: #ffe7aa;
+    font-size: clamp(12px, 1.8vw, 21px);
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #b58aff;
+    animation: pulse 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    50% { opacity: .4; }
+}
+
+/* MESSAGE */
+
+.popup-message {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 25;
+    width: 90%;
+    text-align: center;
+    color: #ffe7a6;
+    font-size: clamp(20px, 4vw, 48px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #ffbd45, 0 0 40px #ff8c00;
+    animation: message 1.8s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes message {
+    0% { opacity: 0; transform: translate(-50%, -20%) scale(.6); }
+    20%, 75% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -80%) scale(1.1); }
+}
+
+/* GOLDEN BURST */
+
+.gold-burst {
+    position: absolute;
+    z-index: 25;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff2a6;
+    box-shadow: 0 0 60px 40px #ffcc45;
+    transform: translate(-50%, -50%);
+    animation: burst .9s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes burst {
+    to {
+        transform: translate(-50%, -50%) scale(45);
+        opacity: 0;
+    }
+}
+
+/* FINALE */
+
+.grand-finale {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at center, #48265e, #1a1033 55%, #060719);
+    animation: fadeIn 1.5s ease;
+}
+
+.final-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    padding: 20px;
+    animation: reveal 2s ease forwards;
+}
+
+.final-top {
+    color: #fff0c5;
+    font-size: clamp(13px, 2vw, 25px);
+    letter-spacing: 7px;
+    text-shadow: 0 0 15px #ffbd55;
+}
+
+.final-title {
+    width: 100%;
+    margin: 25px auto;
+    color: #ffe6a3;
+    font-size: clamp(48px, 10vw, 135px);
+    line-height: 1.12;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    text-shadow:
+        0 0 10px #fff3bc,
+        0 0 30px #ffba47,
+        0 0 70px #e59b2e;
+}
+
+.final-title span {
+    background: linear-gradient(90deg, #fff6bc, #e5ae42, #fff1ad);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gold-line {
+    width: min(550px, 75%);
+    height: 3px;
+    margin: 28px auto;
+    background: linear-gradient(90deg, transparent, #ffdf8a, transparent);
+    box-shadow: 0 0 20px #ffcf6a;
+}
+
+.final-bottom {
+    color: #fff2cf;
+    font-size: clamp(15px, 2.5vw, 30px);
+    letter-spacing: 6px;
+}
+
+.final-stars {
+    margin-top: 30px;
+    color: #ffe29a;
+    font-size: 30px;
+    letter-spacing: 15px;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+        filter: blur(18px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* DIGITAL FIREWORKS */
+
+.fireworks {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--fire-color);
+    box-shadow: 0 0 12px 4px var(--fire-color);
+    animation: firework 1.5s ease-out forwards;
+}
+
+@keyframes firework {
+    0% {
+        transform: translate(0, 0) scale(.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--fx), var(--fy)) scale(.4);
+        opacity: 0;
+    }
+}
+
+/* FIREWORK RINGS */
+
+.fire-ring {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 3px solid #ffe68b;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes ring {
+    to {
+        width: 280px;
+        height: 280px;
+        opacity: 0;
+        border-width: 1px;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+    .final-title {
+        font-size: clamp(40px, 12vw, 75px);
+    }
+
+    .final-top {
+        letter-spacing: 3px;
+    }
+
+    .final-bottom {
+        letter-spacing: 2px;
+    }
+
+    .instruction {
+        letter-spacing: 1px;
+    }
+
+    .gold-label {
+        top: 25%;
+    }
+
+    .balloon.golden {
+        top: 52%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage" id="stage">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+
+    <div id="stars"></div>
+
+    <!-- INTRO -->
+
+    <div class="intro" id="intro">
+        <h1>THE WAIT IS ALMOST OVER</h1>
+        <p>A MAGICAL SURPRISE IS WAITING FOR YOU...</p>
+
+        <button class="start-btn" onclick="startShow()">
+            LET THE MAGIC BEGIN ✨
+        </button>
+    </div>
+
+    <!-- NORMAL BALLOONS -->
+
+    <div id="balloons"></div>
+
+    <!-- GOLDEN BALLOON LABEL -->
+
+    <div id="goldLabel" class="gold-label">
+        ✨ THE MOMENT WE HAVE BEEN WAITING FOR ✨
+    </div>
+
+    <!-- SUSPENSE -->
+
+    <div id="teaser" class="teaser"></div>
+    <div id="message"></div>
+
+    <div class="instruction" id="instruction" style="display:none">
+        ✨ FIND THE GOLDEN BALLOON AND TAP TO REVEAL ✨
+    </div>
+
+    <!-- FINALE -->
+
+    <div id="finale" style="display:none"></div>
+
+</div>
+
+<script>
+
+/* SETTINGS */
+
+const colors = [
+    "#ff397c",
+    "#a855f7",
+    "#00c9ff",
+    "#ffae35",
+    "#43e6a3",
+    "#ff5c5c",
+    "#f6dc54",
+    "#ff70cf",
+    "#ffffff"
+];
+
+const teaserLines = [
+    "CAN YOU GUESS WHAT'S COMING?",
+    "SOMETHING SPECTACULAR IS ON ITS WAY...",
+    "GET READY FOR A MAGICAL MOMENT!",
+    "THE EXCITEMENT IS BUILDING...",
+    "A BIG SURPRISE IS WAITING FOR YOU!",
+    "ARE YOU READY FOR THE GRAND REVEAL?"
+];
+
+let spawnTimer = null;
+let teaserTimer = null;
+let goldenTimer = null;
+let fireworkTimer = null;
+
+let finalStarted = false;
+let goldenCreated = false;
+let goldenShown = false;
+let laneIndex = 0;
+let audioContext = null;
+
+const balloons = document.getElementById("balloons");
+const message = document.getElementById("message");
+const teaser = document.getElementById("teaser");
+const stage = document.getElementById("stage");
+
+const leftLanes = [2, 10, 18, 27, 35];
+const rightLanes = [65, 73, 82, 90, 96];
+
+/* STARS */
+
+for (let i = 0; i < 120; i++) {
+
+    const star = document.createElement("span");
+
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 4 + "s";
+
+    document.getElementById("stars").appendChild(star);
+}
+
+/* AUDIO INITIALIZATION */
+
+function initializeAudio() {
+
+    const AudioClass =
+        window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioClass) return;
+
+    if (!audioContext) {
+        audioContext = new AudioClass();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+}
+
+/* START SHOW */
+
+function startShow() {
+
+    initializeAudio();
+
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("instruction").style.display = "block";
+
+    // First wave of colourful balloons
+
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => spawnBalloon(), i * 180);
+    }
+
+    // Continuous side balloons
+
+    spawnTimer = setInterval(() => {
+
+        if (!finalStarted && !goldenShown) {
+            spawnBalloon();
+        }
+
+    }, 500);
+
+    showTeasers();
+
+    // Golden balloon arrives after suspense
+
+    goldenTimer = setTimeout(() => {
+
+        if (!finalStarted) {
+            createGoldenBalloon();
+        }
+
+    }, 11000);
+}
+
+/* SUSPENSE MESSAGES */
+
+function showTeasers() {
+
+    let index = 0;
+
+    function nextTeaser() {
+
+        if (finalStarted || goldenShown) return;
+
+        teaser.classList.remove("show");
+
+        teaser.textContent = teaserLines[index];
+
+        void teaser.offsetWidth;
+
+        teaser.classList.add("show");
+
+        index = (index + 1) % teaserLines.length;
+    }
+
+    nextTeaser();
+
+    teaserTimer = setInterval(nextTeaser, 4000);
+}
+
+/* CREATE NORMAL BALLOONS */
+
+function spawnBalloon() {
+
+    if (finalStarted || balloons.children.length >= 32) return;
+
+    const balloon = document.createElement("div");
+
+    balloon.className = "balloon";
+
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    const size = 48 + Math.random() * 40;
+    const duration = 8 + Math.random() * 5;
+
+    // Alternate between left and right.
+    // Keep the centre free for the golden balloon.
+
+    const side = Math.random() < .5 ? leftLanes : rightLanes;
+
+    const left = side[Math.floor(Math.random() * side.length)];
+
+    balloon.style.left = left + "%";
+
+    balloon.style.setProperty("--size", size + "px");
+    balloon.style.setProperty("--color", color);
+    balloon.style.setProperty("--duration", duration + "s");
+    balloon.style.setProperty(
+        "--drift",
+        (Math.random() * 35 - 17) + "px"
+    );
+
+    balloon.innerHTML = `
+        <div class="balloon-body"></div>
+        <div class="balloon-knot"></div>
+        <div class="balloon-string"></div>
+    `;
+
+    balloon.addEventListener("click", () => {
+        popBalloon(balloon);
+    });
+
+    balloons.appendChild(balloon);
+
+    setTimeout(() => {
+        balloon.remove();
+    }, (duration + 1) * 1000);
+}
+
+/* CREATE HUGE CENTRAL GOLDEN BALLOON */
+
+function createGoldenBalloon() {
+
+    if (goldenCreated || finalStarted) return;
+
+    goldenCreated = true;
+    goldenShown = true;
+
+    clearInterval(spawnTimer);
+    clearInterval(teaserTimer);
+
+    teaser.classList.remove("show");
+
+    // Create some more side balloons
+
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => spawnBalloon(), i * 180);
+    }
+
+    const golden = document.createElement("div");
+
+    golden.className = "balloon golden";
+
+    golden.innerHTML = `
+        <div class="balloon-body"></div>
+        <div class="balloon-knot"></div>
+        <div class="balloon-string"></div>
+    `;
+
+    balloons.appendChild(golden);
+
+    document.getElementById("goldLabel").style.animation =
+        "labelIn 1.5s ease forwards";
+
+    document.getElementById("instruction").textContent =
+        "✨ TAP THE GIANT GOLDEN BALLOON FOR THE GRAND REVEAL ✨";
+
+    golden.addEventListener("click", () => {
+        revealTheme(golden);
+    });
+
+    // Keep normal balloons appearing on the sides
+
+    spawnTimer = setInterval(() => {
+
+        if (!finalStarted) {
+            spawnBalloon();
+        }
+
+    }, 650);
+}
+
+/* POP NORMAL BALLOON */
+
+function popBalloon(balloon) {
+
+    if (
+        balloon.classList.contains("popping") ||
+        balloon.classList.contains("golden") ||
+        finalStarted
+    ) return;
+
+    balloon.classList.add("popping");
+
+    playPopSound();
+
+    if (Math.random() < .25) {
+
+        const texts = [
+            "COMING SOON...",
+            "THE MAGIC IS NEAR...",
+            "GET READY!",
+            "SOMETHING BIG IS COMING..."
+        ];
+
+        showMessage(
+            texts[Math.floor(Math.random() * texts.length)]
+        );
+    }
+
+    setTimeout(() => balloon.remove(), 350);
+}
+
+/* POP MESSAGE */
+
+function showMessage(text) {
+
+    message.innerHTML = "";
+
+    const element = document.createElement("div");
+
+    element.className = "popup-message";
+    element.textContent = text;
+
+    message.appendChild(element);
+
+    setTimeout(() => element.remove(), 1800);
+}
+
+/* NORMAL BALLOON SOUND */
+
+function playPopSound() {
+
+    if (!audioContext) return;
+
+    const now = audioContext.currentTime;
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.setValueAtTime(550, now);
+    oscillator.frequency.exponentialRampToValueAtTime(80, now + .14);
+
+    gain.gain.setValueAtTime(.2, now);
+    gain.gain.exponentialRampToValueAtTime(.001, now + .16);
+
+    oscillator.start(now);
+    oscillator.stop(now + .16);
+}
+
+/* FIREWORK SOUND EFFECT */
+
+function playFireworkSound() {
+
+    if (!audioContext) return;
+
+    const now = audioContext.currentTime;
+
+    // Low cinematic boom
+
+    const boom = audioContext.createOscillator();
+    const boomGain = audioContext.createGain();
+
+    boom.connect(boomGain);
+    boomGain.connect(audioContext.destination);
+
+    boom.type = "sine";
+
+    boom.frequency.setValueAtTime(100, now);
+    boom.frequency.exponentialRampToValueAtTime(28, now + .65);
+
+    boomGain.gain.setValueAtTime(.55, now);
+    boomGain.gain.exponentialRampToValueAtTime(.001, now + .8);
+
+    boom.start(now);
+    boom.stop(now + .8);
+
+    // Digital crackling sound
+
+    const bufferSize = audioContext.sampleRate * .7;
+
+    const buffer = audioContext.createBuffer(
+        1,
+        bufferSize,
+        audioContext.sampleRate
+    );
+
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+
+        const fade = Math.pow(1 - i / bufferSize, 2);
+
+        data[i] = (Math.random() * 2 - 1) * fade;
+    }
+
+    const noise = audioContext.createBufferSource();
+    const filter = audioContext.createBiquadFilter();
+    const noiseGain = audioContext.createGain();
+
+    noise.buffer = buffer;
+
+    filter.type = "highpass";
+    filter.frequency.value = 1200;
+
+    noise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(audioContext.destination);
+
+    noiseGain.gain.setValueAtTime(.4, now);
+    noiseGain.gain.exponentialRampToValueAtTime(.001, now + .7);
+
+    noise.start(now);
+    noise.stop(now + .7);
+}
+
+/* GOLDEN BALLOON REVEAL */
+
+function revealTheme(balloon) {
+
+    if (finalStarted) return;
+
+    finalStarted = true;
+
+    clearInterval(spawnTimer);
+    clearInterval(teaserTimer);
+    clearTimeout(goldenTimer);
+
+    teaser.classList.remove("show");
+
+    document.getElementById("instruction").style.display = "none";
+    document.getElementById("goldLabel").style.display = "none";
+
+    // Remove remaining balloons
+
+    balloons.style.transition = "opacity .5s";
+    balloons.style.opacity = "0";
+
+    // Golden balloon bursts
+
+    balloon.classList.remove("golden");
+    balloon.style.position = "absolute";
+    balloon.style.left = "50%";
+    balloon.style.top = "50%";
+    balloon.style.bottom = "auto";
+    balloon.style.width = "200px";
+    balloon.style.height = "300px";
+    balloon.style.transform = "translate(-50%, -50%)";
+
+    balloon.style.animation = "pop .5s ease-out forwards";
+
+    // Cinematic burst sound
+
+    playFireworkSound();
+
+    setTimeout(() => {
+
+        balloons.innerHTML = "";
+
+        showGoldenBurst();
+
+    }, 500);
+}
+
+/* GOLDEN EXPLOSION */
+
+function showGoldenBurst() {
+
+    const burst = document.createElement("div");
+
+    burst.className = "gold-burst";
+
+    stage.appendChild(burst);
+
+    // First grand explosion
+
+    createFireworks(10);
+
+    playFireworkSound();
+
+    setTimeout(() => {
+
+        burst.remove();
+
+        showGrandFinale();
+
+    }, 900);
+}
+
+/* GRAND THEME REVEAL */
+
+function showGrandFinale() {
+
+    const finale = document.getElementById("finale");
+
+    finale.style.display = "flex";
+    finale.className = "grand-finale";
+
+    finale.innerHTML = `
+        <div class="fireworks" id="fireworks"></div>
+
+        <div class="final-content">
+
+            <p class="final-top">
+                LADIES AND GENTLEMEN...
+            </p>
+
+            <h1 class="final-title">
+                PICTURE<br>
+                <span>ABHI</span><br>
+                BAAKI HAI...
+            </h1>
+
+            <div class="gold-line"></div>
+
+            <p class="final-bottom">
+                THE SHOW HAS JUST BEGUN
+            </p>
+
+            <div class="final-stars">
+                ✧ ✦ ✧ ✦ ✧
+            </div>
+
+        </div>
+    `;
+
+    // Grand fireworks with sound
+
+    startFireworkShow();
+}
+
+/* CREATE DIGITAL FIREWORKS */
+
+function createFireworks(number = 5) {
+
+    const container = document.getElementById("fireworks");
+
+    if (!container) return;
+
+    const fireColors = [
+        "#ffdd55",
+        "#ff397c",
+        "#00d9ff",
+        "#a855f7",
+        "#ffffff",
+        "#43e6a3"
+    ];
+
+    for (let n = 0; n < number; n++) {
+
+        const centerX = 5 + Math.random() * 90;
+        const centerY = 8 + Math.random() * 65;
+
+        // Exploding circle
+
+        const ring = document.createElement("span");
+
+        ring.className = "fire-ring";
+
+        ring.style.left = centerX + "%";
+        ring.style.top = centerY + "%";
+
+        container.appendChild(ring);
+
+        setTimeout(() => ring.remove(), 1100);
+
+        // Individual sparks
+
+        const particles = 45;
+
+        for (let i = 0; i < particles; i++) {
+
+            const angle = Math.PI * 2 * i / particles;
+
+            const distance = 70 + Math.random() * 140;
+
+            const spark = document.createElement("span");
+
+            spark.className = "firework";
+
+            spark.style.left = centerX + "%";
+            spark.style.top = centerY + "%";
+
+            spark.style.setProperty(
+                "--fx",
+                Math.cos(angle) * distance + "px"
+            );
+
+            spark.style.setProperty(
+                "--fy",
+                Math.sin(angle) * distance + "px"
+            );
+
+            spark.style.setProperty(
+                "--fire-color",
+                fireColors[
+                    Math.floor(Math.random() * fireColors.length)
+                ]
+            );
+
+            container.appendChild(spark);
+
+            setTimeout(() => spark.remove(), 1600);
+        }
+    }
+}
+
+/* CONTINUOUS FIREWORK SHOW */
+
+function startFireworkShow() {
+
+    createFireworks(12);
+
+    playFireworkSound();
+
+    // Repeated digital fireworks
+
+    fireworkTimer = setInterval(() => {
+
+        createFireworks(3);
+
+        playFireworkSound();
+
+    }, 1600);
+}
+
+</script>
+
+</body>
+</html>
